@@ -1,0 +1,1 @@
+dotnet publish --output .\published --configuration "Release" --framework "net6.0" --self-contained true /p:PublishSingleFile=true /p:GenerateRuntimeConfigurationFiles=true --runtime linux-x64
