@@ -1,0 +1,9 @@
+docker build . -t sqs-event-source-mapping-proxy:0.0.2 BYTT UT VERSJON
+
+docker login
+larsandreasek
+passord
+
+docker tag sqs-event-source-mapping-proxy:0.0.2 larsandreasek/sqs-event-source-mapping-proxy:0.0.2 BYTT UT
+
+docker push larsandreasek/sqs-event-source-mapping-proxy:0.0.2 BYTT UT 

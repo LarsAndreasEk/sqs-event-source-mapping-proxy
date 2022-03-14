@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:0.12.5
+    ports:
+      - "5566:4566"
+    environment:
+      - SERVICES=${SERVICES- }
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - ./localstack-data:/tmp/localstack
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  sqsproxy:
+    image: larsandreasek/sqs-event-source-mapping-proxy:0.0.4
+    ports:
+      - "9988:8080"
+    environment:
+      - SQS_QUEUE_URL=http://localstack:4566/000000000000/some-sqs-queue
+      - AWS:ServiceURL=http://localstack:4566
+      - AWS_ACCESS_KEY_ID=Test1234
+      - AWS_SECRET_ACCESS_KEY=Test1234
+      - AWS_SESSION_TOKEN=ADSFADSF
+      - AWS_REGION=eu-west-1
